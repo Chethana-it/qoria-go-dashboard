@@ -5,6 +5,8 @@ import (
 
 	"github.com/Chethana-it/qoria-go-dashboard/backend/internal/controller"
 	"github.com/Chethana-it/qoria-go-dashboard/backend/internal/data"
+	"github.com/gin-contrib/cors"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -18,6 +20,7 @@ func main() {
 
 	// 2) Initialize Gin
 	router := gin.Default()
+	router.Use(cors.Default())
 
 	// 3) Health route (no prefix)
 	controller.RegisterHealthRoutes(router.Group(""))

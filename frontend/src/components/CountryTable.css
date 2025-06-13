@@ -1,0 +1,36 @@
+/* Scrollable container එක වෙන් කරමු */
+.table-wrapper {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-top: 1rem;
+  }
+  
+  /* මේකේදි table එකට පමණක් width:100% දීලා display:table */
+  .country-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  /* Sticky header */
+  .country-table thead {
+    background-color: #0052cc;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1; /* header always ඉහලට */
+  }
+  
+  /* Cells */
+  .country-table th,
+  .country-table td {
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #e1e4e8;
+    min-width: 120px;
+  }
+  
+  /* Zebra stripes */
+  .country-table tbody tr:nth-child(even) {
+    background-color: #f2f6fc;
+  }
+  
