@@ -1,27 +1,38 @@
 package main
 
 import (
-	"net/http"
+	"log"
 
+	"github.com/Chethana-it/qoria-go-dashboard/backend/internal/controller"
+	"github.com/Chethana-it/qoria-go-dashboard/backend/internal/data"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
+	// 1) Load your CSV once at startup
+	records, err := data.LoadRecords("../../data/GO_test_5m.csv")
+	if err != nil {
+		log.Fatalf("Failed to load CSV data: %v", err)
+	}
+	log.Printf("Loaded %d records\n", len(records))
 
+	// 2) Initialize Gin
 	router := gin.Default()
 
-	router.GET("/health", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"status": "OK"})
-	})
+	// 3) Health route (no prefix)
+	controller.RegisterHealthRoutes(router.Group(""))
 
-	router.GET("/api/revenue-by-country", func(c *gin.Context) {
-		// TODO: Replace with real logic
-		demo := []map[string]interface{}{
-			{"country": "US", "revenue": 12345.67},
-			{"country": "IN", "revenue": 8910.11},
-		}
-		c.JSON(http.StatusOK, demo)
-	})
+	// 4) Create API v1 group
+	api := router.Group("/api/v1")
 
-	router.Run(":8080")
+	// 5) Register controllers for each analytics group
+	controller.RegisterCountryRoutes(api, records)
+	controller.RegisterProductRoutes(api, records)
+	controller.RegisterSalesRoutes(api, records)
+	controller.RegisterRegionRoutes(api, records)
+
+	// 6) Start server
+	if err := router.Run(":8080"); err != nil {
+		log.Fatalf("Server failed to start: %v", err)
+	}
 }
