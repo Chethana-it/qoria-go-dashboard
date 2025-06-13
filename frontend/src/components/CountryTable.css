@@ -1,0 +1,36 @@
+
+.table-wrapper {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-top: 1rem;
+  }
+  
+ 
+  .country-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+
+  .country-table thead {
+    background-color: #0052cc;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1; 
+  }
+  
+ 
+  .country-table th,
+  .country-table td {
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #e1e4e8;
+    min-width: 120px;
+  }
+  
+ 
+  .country-table tbody tr:nth-child(even) {
+    background-color: #f2f6fc;
+  }
+  
