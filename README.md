@@ -1,1 +1,2 @@
-# Qoria Go Dashboard
+# qoria-go-dashboard-
+qoria-go-dashboard 
