@@ -9,18 +9,16 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// RegisterCountryRoutes registers endpoints for country analytics
 func RegisterCountryRoutes(rg *gin.RouterGroup, records []data.Record) {
-	// /api/v1/revenue-by-country
+
 	rg.GET("/revenue-by-country", func(c *gin.Context) {
 		res := service.RevenueByCountry(records)
 		c.JSON(http.StatusOK, res)
 	})
 
-	// /api/v1/country-product-stats with pagination
 	rg.GET("/country-product-stats", func(c *gin.Context) {
 		full := service.CountryProductTable(records)
-		// parse pagination
+
 		limit := 100
 		offset := 0
 		if q := c.Query("limit"); q != "" {
@@ -33,7 +31,7 @@ func RegisterCountryRoutes(rg *gin.RouterGroup, records []data.Record) {
 				offset = v
 			}
 		}
-		// bounds
+
 		if offset < 0 {
 			offset = 0
 		}

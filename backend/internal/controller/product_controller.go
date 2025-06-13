@@ -9,7 +9,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// RegisterProductRoutes registers product-related endpoints
 func RegisterProductRoutes(rg *gin.RouterGroup, records []data.Record) {
 	rg.GET("/top-products", func(c *gin.Context) {
 		limit := 20

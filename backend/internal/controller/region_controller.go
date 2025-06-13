@@ -9,7 +9,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// RegisterRegionRoutes registers region analytics endpoints
 func RegisterRegionRoutes(rg *gin.RouterGroup, records []data.Record) {
 	rg.GET("/revenue-by-region", func(c *gin.Context) {
 		limit := 30

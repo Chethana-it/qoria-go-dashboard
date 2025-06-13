@@ -10,7 +10,6 @@ import (
 	"time"
 )
 
-// LoadRecords reads GO_test_5m.csv and returns []Record
 func LoadRecords(path string) ([]Record, error) {
 	f, err := os.Open(path)
 	if err != nil {
@@ -19,17 +18,16 @@ func LoadRecords(path string) ([]Record, error) {
 	defer f.Close()
 
 	r := csv.NewReader(f)
-	header, err := r.Read() // header row
+	header, err := r.Read()
 	if err != nil {
 		return nil, err
 	}
 
-	// Column index map
 	idx := map[string]int{}
 	for i, col := range header {
 		idx[strings.TrimSpace(col)] = i
 	}
-	// required columns
+
 	req := []string{
 		"transaction_id", "transaction_date", "user_id", "country", "region",
 		"product_id", "product_name", "category", "price", "quantity",
@@ -50,13 +48,12 @@ func LoadRecords(path string) ([]Record, error) {
 			return nil, err
 		}
 
-		// Parse dates (format "2006-01-02" or adjust if includes time)
 		td, err := time.Parse("2006-01-02", row[idx["transaction_date"]])
 		if err != nil {
-			// try datetime format if needed:
+
 			td, err = time.Parse("2006-01-02 15:04:05", row[idx["transaction_date"]])
 			if err != nil {
-				// skip or set zero
+
 				td = time.Time{}
 			}
 		}

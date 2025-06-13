@@ -2,7 +2,6 @@ package data
 
 import "time"
 
-// Record represents one row from GO_test_5m.csv
 type Record struct {
 	TransactionID   string
 	TransactionDate time.Time
